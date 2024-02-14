@@ -22,7 +22,7 @@
 3. Added bean validation for Entity classes.
 4. After deleting the author all associated books will be deleted.
 5. Scheduler is logging the result in every 5 minutes for notify the  information of like
-   count for each author.
+   count for each author. ( Implemented `services > ScheduleService` )
 
 ### Non Functional Requirement
 
