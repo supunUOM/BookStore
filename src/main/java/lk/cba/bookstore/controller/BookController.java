@@ -1,7 +1,7 @@
 package lk.cba.bookstore.controller;
 
 import lk.cba.bookstore.dto.BookDTO;
-import lk.cba.bookstore.payload.BookReqPayload;
+import lk.cba.bookstore.payload.BookAuthorReqPayload;
 import lk.cba.bookstore.service.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,15 +20,14 @@ import org.springframework.web.bind.annotation.*;
 public class BookController {
 
     private final BookService bookService;
-//    private final BookServiceImpl bookService;
 
     @PostMapping
-    public ResponseEntity<BookDTO> saveBook(@RequestBody BookReqPayload bookReqPayload) {
-        var book = bookService.saveBook(bookReqPayload);
+    public ResponseEntity<BookDTO> saveBook(@RequestBody BookAuthorReqPayload bookAuthorReqPayload) {
+        var book = bookService.saveBookWithAuthor(bookAuthorReqPayload);
         return new ResponseEntity<>(book, HttpStatus.OK);
     }
 
-    @GetMapping
+    @GetMapping("/{isbn}")
     public ResponseEntity<BookDTO> getBookByIsbn(@PathVariable("isbn") String isbn) {
         BookDTO bookDTO = bookService.findBookByIsbn(isbn);
         return new ResponseEntity<>(bookDTO, HttpStatus.OK);

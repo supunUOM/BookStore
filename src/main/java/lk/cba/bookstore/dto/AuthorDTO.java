@@ -1,8 +1,10 @@
 package lk.cba.bookstore.dto;
 
 import lk.cba.bookstore.entity.Book;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -13,6 +15,8 @@ import java.util.List;
  **/
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class AuthorDTO {
     private Integer authorId;

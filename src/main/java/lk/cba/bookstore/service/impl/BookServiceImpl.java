@@ -3,7 +3,9 @@ package lk.cba.bookstore.service.impl;
 import lk.cba.bookstore.dto.BookDTO;
 import lk.cba.bookstore.entity.Book;
 import lk.cba.bookstore.exception.BookNotFoundException;
+import lk.cba.bookstore.payload.BookAuthorReqPayload;
 import lk.cba.bookstore.payload.BookReqPayload;
+import lk.cba.bookstore.repository.AuthorRepository;
 import lk.cba.bookstore.repository.BookRepository;
 import lk.cba.bookstore.service.BookService;
 import lk.cba.bookstore.util.ModelMapperUtil;
@@ -25,10 +27,11 @@ import java.util.Optional;
 public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
+    private final AuthorRepository authorRepository;
     private final ModelMapperUtil modelMapperUtil;
 
     @Override
-    public BookDTO saveBook(BookReqPayload bookReq) {
+    public BookDTO saveBookWithAuthor(BookAuthorReqPayload bookReq) {
         Book newBook = Book.builder()
                 .isbn(bookReq.getIsbn())
                 .title(bookReq.getTitle())
@@ -39,6 +42,13 @@ public class BookServiceImpl implements BookService {
         Book savedBook = bookRepository.save(newBook);
         return modelMapperUtil.mapToDTO(savedBook, BookDTO.class);
     }
+
+    @Override
+    public BookDTO saveBookWithAuthorId(BookReqPayload book) {
+
+        return null;
+    }
+
 
     @Override
     public BookDTO findBookByIsbn(String isbn) {
@@ -52,11 +62,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookDTO editBook(BookReqPayload bookReq) {
+    public BookDTO editBook(BookAuthorReqPayload bookReq) {
         return null;
     }
 
-//    public Book save(BookReqPayload bookReq) {
+//    public Book save(BookAuthorReqPayload bookReq) {
 //        Book newBook = Book.builder()
 //                .isbn(bookReq.getIsbn())
 //                .title(bookReq.getTitle())
