@@ -1,15 +1,18 @@
-# BookStore
-Book store app for Win Publications.
+## **Book Store**
 
-The book store application run on port 8080 and can view and test all the endpoint
-via Swagger UI.
+- You can clone the project using
 
-[http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
+  ```git clone https://github.com/supunUOM/BookStore.git ```.
+
+
+- The book store application run on port 8080 and can view and test all the endpoint
+  via Swagger UI.
+  [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
 
 ### Assumptions
 
-1. One book associated with one author
-2. One author has one contact number
+1. one book associated with one author
+2. one author has one contact number
 
 ### Functional Requirement
 
@@ -17,6 +20,8 @@ via Swagger UI.
 1. User can search book using ISBN number.
 2. User can like for a book.
 3. After deleting the author all associated books will be deleted.
+4. Scheduler is logging the result in every 5 minutes for notify the  information of like
+   count for each author.
 
 ### Non Functional Recuirement
 
