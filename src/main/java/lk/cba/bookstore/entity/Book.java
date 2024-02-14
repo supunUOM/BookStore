@@ -18,6 +18,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name="Book", indexes = {
+        @Index(name = "idx_isbn", columnList = "isbn")
+})
 public class Book {
 
     @Id

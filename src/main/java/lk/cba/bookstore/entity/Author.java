@@ -22,6 +22,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name="Author", indexes = {
+        @Index(name = "idx_author_id", columnList = "authorId")
+})
 public class Author {
 
     @Id
