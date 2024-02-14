@@ -31,3 +31,8 @@
 2. Reduce the **`NullPointerException`** using **`Optional`**.
 3. For performance improvement I used the **`Stream API`** .
 4. Have added **`Indexes`** for search fields to improve the database performance.
+
+### Additional
+
+1. I didn't apply the `spring profiles`. 
+2. If I have production environment I can add those configuration to `application-dev.yaml` and activate that profile. 
