@@ -61,7 +61,7 @@ public class AuthorServiceImpl implements AuthorService {
 
         Author author = optionalAuthor.orElseThrow(() -> {
             log.error("Author not found for id: {}", authorId);
-            return new AuthorNotFoundException(String.format("Author not found for id: %s", authorId));
+            return new AuthorNotFoundException(String.format("Author not found for id: %d", authorId));
         });
 
         return modelMapperUtil.mapToDTO(author, AuthorDTO.class);

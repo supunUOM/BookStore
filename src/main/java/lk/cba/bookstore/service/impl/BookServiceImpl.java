@@ -52,7 +52,7 @@ public class BookServiceImpl implements BookService {
 
         Author fetchedAuthor = optionalAuthor.orElseThrow(() -> {
             log.error("Author not found when saving the book");
-            return new AuthorNotFoundException(String.format("Author not found authorId: %s", book.getAuthorId()));
+            return new AuthorNotFoundException(String.format("Author not found authorId: %d", book.getAuthorId()));
         });
 
         Book newBook = Book.builder()
@@ -112,7 +112,7 @@ public class BookServiceImpl implements BookService {
         Optional<Book> optionalBook = bookRepository.findBookByIsbn(isbn);
         if (optionalBook.isEmpty()) {
             log.error("Non existing book cannot be deleted, isbn: {}", isbn);
-            throw new BookNotFoundException("Book now found when deleting.");
+            throw new BookNotFoundException("Book not found when deleting.");
         }
         bookRepository.deleteBookByIsbn(isbn);
         return String.format("Book deleted successfully isbn: %s", isbn);
