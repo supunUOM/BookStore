@@ -11,8 +11,8 @@
 
 ### Assumptions
 
-1. one book associated with one author
-2. one author has one contact number
+1. One book associated with one author
+2. One author has one contact number
 
 ### Functional Requirement
 
