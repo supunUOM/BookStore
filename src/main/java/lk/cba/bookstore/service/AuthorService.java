@@ -12,4 +12,5 @@ import lk.cba.bookstore.payload.AuthorReqPayload;
 public interface AuthorService {
     AuthorDTO saveAuthorWithoutBooks(AuthorReqPayload authorPayload);
     AuthorDTO findAuthorById(Integer authorId);
+    String deleteAuthor(Integer authorId);
 }

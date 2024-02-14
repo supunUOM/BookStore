@@ -67,4 +67,17 @@ public class AuthorServiceImpl implements AuthorService {
         return modelMapperUtil.mapToDTO(author, AuthorDTO.class);
     }
 
+    @Override
+    public String deleteAuthor(Integer authorId) {
+        Optional<Author> optionalAuthor = authorRepository.findById(authorId);
+        optionalAuthor.orElseThrow(() -> {
+            log.error("Author not found authorId: {}", authorId);
+            return new AuthorNotFoundException(String.format("Author not found authorId: %d", authorId));
+        });
+
+        authorRepository.deleteById(authorId);
+        return String.format("Author deleted successfully authorId: %d", authorId);
+    }
+
+
 }

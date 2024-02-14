@@ -35,5 +35,10 @@ public class AuthorController {
         return new ResponseEntity<>(authorService.saveAuthorWithoutBooks(authorPayload), HttpStatus.OK);
     }
 
+    @DeleteMapping("/{authorId}")
+    public ResponseEntity<String> deleteAuthorById(@PathVariable("authorId") Integer authorId) {
+        log.info("Deleting the author");
+        return new ResponseEntity<>(authorService.deleteAuthor(authorId), HttpStatus.OK);
+    }
 
 }

@@ -1,6 +1,7 @@
 package lk.cba.bookstore.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,9 +27,11 @@ public class Book {
     private Integer bookId;
 
     @Column(nullable = false)
+    @Pattern(regexp = "^[a-zA-Z0-9]*$", message = "Isbn can only contain alphanumeric characters")
     private String isbn;
 
     @Column(nullable = false)
+    @Pattern(regexp = "^[a-zA-Z0-9]*$", message = "Title can only contain alphanumeric characters")
     private String title;
 
     private String category;

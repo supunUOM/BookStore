@@ -2,6 +2,8 @@ package lk.cba.bookstore.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,12 +29,15 @@ public class Author {
     private Integer authorId;
 
     @Column(nullable = false)
+    @Pattern(regexp = "^[A-Za-z]+$", message = "First name can only contain letters")
     private String firstName;
 
     @Column(nullable = false)
+    @Pattern(regexp = "^[A-Za-z]+$", message = "Last name can only contain letters")
     private String lastName;
 
     @Column(nullable = false)
+    @Email(message = "invalid email address")
     private String email;
 
     @Column(nullable = false)
