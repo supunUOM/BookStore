@@ -34,7 +34,6 @@ public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
     private final ModelMapperUtil modelMapperUtil;
-    private Integer likeCount;
 
     @Override
     public BookDTO saveBookWithAuthorId(BookReqPayload book) {
@@ -126,15 +125,10 @@ public class BookServiceImpl implements BookService {
             log.error("Book Not found.");
             return new BookNotFoundException("Book not found.");
         });
-        if( fetchedBook.getLikeCount() == null){
-            fetchedBook.setLikeCount(1);
-            likeCount = 1;
-        }else{
-            likeCount = fetchedBook.getLikeCount() + 1;
-        }
-        fetchedBook.setLikeCount(likeCount);
+        int newLikeCount = fetchedBook.getLikeCount() + 1;
+        fetchedBook.setLikeCount(newLikeCount);
         bookRepository.save(fetchedBook);
-        return String.format("New like count: %d", likeCount);
+        return String.format("New like count: %d", newLikeCount);
     }
 
 }

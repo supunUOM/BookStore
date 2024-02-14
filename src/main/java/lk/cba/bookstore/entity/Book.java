@@ -33,8 +33,8 @@ public class Book {
 
     private String category;
 
-    @Column(columnDefinition = "integer default 0")
-    private Integer likeCount;
+    @Column(nullable = false)
+    private int likeCount;
 
     @ManyToOne(
             cascade = CascadeType.ALL,
