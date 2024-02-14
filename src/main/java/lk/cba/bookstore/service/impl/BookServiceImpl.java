@@ -5,7 +5,6 @@ import lk.cba.bookstore.entity.Author;
 import lk.cba.bookstore.entity.Book;
 import lk.cba.bookstore.exception.AuthorNotFoundException;
 import lk.cba.bookstore.exception.BookNotFoundException;
-import lk.cba.bookstore.payload.BookAuthorReqPayload;
 import lk.cba.bookstore.payload.BookEditReqPayload;
 import lk.cba.bookstore.payload.BookReqPayload;
 import lk.cba.bookstore.repository.AuthorRepository;
@@ -32,19 +31,6 @@ public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
     private final ModelMapperUtil modelMapperUtil;
-
-    @Override
-    public BookDTO saveBookWithAuthor(BookAuthorReqPayload bookReq) {
-        Book newBook = Book.builder()
-                .isbn(bookReq.getIsbn())
-                .title(bookReq.getTitle())
-                .category(bookReq.getCategory())
-                .author(bookReq.getAuthor())
-                .build();
-
-        Book savedBook = bookRepository.save(newBook);
-        return modelMapperUtil.mapToDTO(savedBook, BookDTO.class);
-    }
 
     @Override
     public BookDTO saveBookWithAuthorId(BookReqPayload book) {
@@ -80,7 +66,6 @@ public class BookServiceImpl implements BookService {
             log.error("Book not found isbn: {}", isbn);
             throw new BookNotFoundException(String.format("Book not found isbn: %s", isbn));
         }
-        //Otherwise we can use optionalBook.orElseThrow(() -> new BookNotFoundException("book not found"));
         return modelMapperUtil.mapToDTO(optionalBook.get(), BookDTO.class);
     }
 
@@ -98,11 +83,19 @@ public class BookServiceImpl implements BookService {
         book.setTitle(bookReq.getTitle());
         book.setCategory(bookReq.getCategory());
 
-        if(book.getAuthor().getAuthorId() != bookReq.getAuthorId()){
-
+        if (book.getAuthor().getAuthorId() != bookReq.getAuthorId()) {
+            Optional<Author> optionalAuthor = authorRepository.findById(bookReq.getAuthorId());
+            Author fetchedAuthor = optionalAuthor.orElseThrow(() -> {
+                log.error("Author not found for id: {}", bookReq.getAuthorId());
+                return new AuthorNotFoundException("Author not found");
+            });
+            book.setAuthor(fetchedAuthor);
+            log.info("New author set for book id: {}", bookReq.getBookId());
         }
 
-        return null;
+        Book savedBook = bookRepository.save(book);
+
+        return modelMapperUtil.mapToDTO(savedBook, BookDTO.class);
     }
 
     @Override
