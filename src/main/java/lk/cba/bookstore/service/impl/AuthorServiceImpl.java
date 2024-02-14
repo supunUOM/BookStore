@@ -1,5 +1,6 @@
 package lk.cba.bookstore.service.impl;
 
+import jakarta.transaction.Transactional;
 import lk.cba.bookstore.dto.AuthorDTO;
 import lk.cba.bookstore.entity.Author;
 import lk.cba.bookstore.exception.AuthorAlreadyExistException;
@@ -23,6 +24,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 public class AuthorServiceImpl implements AuthorService {
 
     private final AuthorRepository authorRepository;
@@ -47,6 +49,7 @@ public class AuthorServiceImpl implements AuthorService {
                 .firstName(authorPayload.getFirstName())
                 .lastName(authorPayload.getLastName())
                 .email(authorPayload.getEmail())
+                .contactNo(authorPayload.getContactNo())
                 .build();
         var savedAuthor = authorRepository.save(author);
         return modelMapperUtil.mapToDTO(savedAuthor, AuthorDTO.class);

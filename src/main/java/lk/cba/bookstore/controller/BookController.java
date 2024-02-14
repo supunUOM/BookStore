@@ -39,14 +39,13 @@ public class BookController {
     @PutMapping
     public ResponseEntity<BookDTO> editBook(@RequestBody BookEditReqPayload bookPayload) {
         log.info("try to edit book {} in controller", bookPayload.getBookId());
-        return new ResponseEntity<>(bookService.editBook(bookPayload), HttpStatus.OK);
+        return new ResponseEntity<>(bookService.updateBook(bookPayload), HttpStatus.OK);
     }
 
     @DeleteMapping("/{isbn}")
-    public ResponseEntity deleteBook(@PathVariable("isbn") String isbn) {
+    public ResponseEntity<String> deleteBook(@PathVariable("isbn") String isbn) {
         log.info("try to delete book {} in controller", isbn);
-        bookService.deleteBook(isbn);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(bookService.deleteBook(isbn), HttpStatus.OK);
     }
 
 }

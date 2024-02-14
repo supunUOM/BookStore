@@ -1,9 +1,11 @@
 package lk.cba.bookstore.service.impl;
 
+import jakarta.transaction.Transactional;
 import lk.cba.bookstore.dto.BookDTO;
 import lk.cba.bookstore.entity.Author;
 import lk.cba.bookstore.entity.Book;
 import lk.cba.bookstore.exception.AuthorNotFoundException;
+import lk.cba.bookstore.exception.BookAlreadyExistException;
 import lk.cba.bookstore.exception.BookNotFoundException;
 import lk.cba.bookstore.payload.BookEditReqPayload;
 import lk.cba.bookstore.payload.BookReqPayload;
@@ -26,6 +28,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
@@ -40,6 +43,12 @@ public class BookServiceImpl implements BookService {
         }
 
         Optional<Author> optionalAuthor = authorRepository.findById(book.getAuthorId());
+        Optional<Book> optionalBook = bookRepository.findBookByIsbn(book.getIsbn());
+
+        if (optionalBook.isPresent()) {
+            log.error("Book is already exist isbn: {}", book.getIsbn());
+            throw new BookAlreadyExistException(String.format("Book already exist isbn: %s", book.getIsbn()));
+        }
 
         Author fetchedAuthor = optionalAuthor.orElseThrow(() -> {
             log.error("Author not found when saving the book");
@@ -70,7 +79,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookDTO editBook(BookEditReqPayload bookReq) {
+    public BookDTO updateBook(BookEditReqPayload bookReq) {
         if (bookReq.getBookId() == null) {
             throw new IllegalArgumentException("Book id cannot be null.");
         }
@@ -83,7 +92,7 @@ public class BookServiceImpl implements BookService {
         book.setTitle(bookReq.getTitle());
         book.setCategory(bookReq.getCategory());
 
-        if (book.getAuthor().getAuthorId() != bookReq.getAuthorId()) {
+        if (bookReq.getAuthorId() != null && book.getAuthor().getAuthorId() != bookReq.getAuthorId()) {
             Optional<Author> optionalAuthor = authorRepository.findById(bookReq.getAuthorId());
             Author fetchedAuthor = optionalAuthor.orElseThrow(() -> {
                 log.error("Author not found for id: {}", bookReq.getAuthorId());
@@ -99,13 +108,14 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void deleteBook(String isbn) {
+    public String deleteBook(String isbn) {
         Optional<Book> optionalBook = bookRepository.findBookByIsbn(isbn);
         if (optionalBook.isEmpty()) {
             log.error("Non existing book cannot be deleted, isbn: {}", isbn);
             throw new BookNotFoundException("Book now found when deleting.");
         }
         bookRepository.deleteBookByIsbn(isbn);
+        return String.format("Book deleted successfully isbn: %s", isbn);
     }
 
 }

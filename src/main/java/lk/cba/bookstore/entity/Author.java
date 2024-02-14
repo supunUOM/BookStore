@@ -35,6 +35,9 @@ public class Author {
     @Column(nullable = false)
     private String email;
 
+    @Column(nullable = false)
+    private String contactNo;
+
     @OneToMany(
             mappedBy = "author",
             cascade = CascadeType.ALL

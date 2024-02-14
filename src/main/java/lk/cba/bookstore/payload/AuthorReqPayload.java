@@ -16,5 +16,5 @@ public class AuthorReqPayload {
     private String firstName;
     private String lastName;
     private String email;
-    private List<Book> books;
+    private String contactNo;
 }

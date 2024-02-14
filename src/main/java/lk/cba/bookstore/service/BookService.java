@@ -16,8 +16,8 @@ public interface BookService {
 
     BookDTO findBookByIsbn(String isbn);
 
-    BookDTO editBook(BookEditReqPayload book);
+    BookDTO updateBook(BookEditReqPayload book);
 
-    void deleteBook(String isbn);
+    String deleteBook(String isbn);
 
 }
