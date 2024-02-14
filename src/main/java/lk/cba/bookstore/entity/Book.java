@@ -33,6 +33,7 @@ public class Book {
 
     private String category;
 
+    @Column(columnDefinition = "integer default 0")
     private Integer likeCount;
 
     @ManyToOne(

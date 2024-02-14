@@ -20,4 +20,6 @@ public interface BookService {
 
     String deleteBook(String isbn);
 
+    String likeForBook(Integer bookId);
+
 }

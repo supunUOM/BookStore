@@ -48,4 +48,10 @@ public class BookController {
         return new ResponseEntity<>(bookService.deleteBook(isbn), HttpStatus.OK);
     }
 
+    @GetMapping("/{bookId}/like")
+    public ResponseEntity<String> doLike(@PathVariable("bookId") Integer bookId) {
+        log.info("try to like book in controller");
+        return new ResponseEntity<>(bookService.likeForBook(bookId), HttpStatus.OK);
+    }
+
 }
