@@ -19,13 +19,14 @@
 
 1. User can search book using ISBN number.
 2. User can like for a book.
-3. After deleting the author all associated books will be deleted.
-4. Scheduler is logging the result in every 5 minutes for notify the  information of like
+3. Added bean validation for Entity classes.
+4. After deleting the author all associated books will be deleted.
+5. Scheduler is logging the result in every 5 minutes for notify the  information of like
    count for each author.
 
-### Non Functional Recuirement
+### Non Functional Requirement
 
-1. Exceptions are handled by Globaly using `@RestControllerAdvice`
+1. Exceptions are handled by Globally using `@RestControllerAdvice`
    and `@ExceptionHandler` annotations.
 2. Reduce the **`NullPointerException`** using **`Optional`**.
 3. For performance improvement I used the **`Stream API`** .
