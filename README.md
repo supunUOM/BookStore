@@ -35,4 +35,4 @@
 ### Additional
 
 1. I didn't apply the `spring profiles`. 
-2. If I have production environment I can add those configuration to `application-dev.yaml` and activate that profile. 
+2. If I have production environment, I can add those configuration to `application-prod.yaml` and activate that profile. 
