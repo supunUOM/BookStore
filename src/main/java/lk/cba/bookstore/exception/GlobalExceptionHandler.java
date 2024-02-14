@@ -47,4 +47,16 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorPayload, httpStatus);
     }
 
+    @ExceptionHandler(AuthorAlreadyExistException.class)
+    public ResponseEntity<GlobalExceptionPayload> authorAlreadyExist(HttpServletRequest request, AuthorAlreadyExistException exception) {
+        HttpStatus httpStatus = HttpStatus.CONFLICT;
+        GlobalExceptionPayload errorPayload = GlobalExceptionPayload.builder()
+                .errorUrl(request.getRequestURL().toString())
+                .errorMessage(exception.getMessage())
+                .statusCode(httpStatus)
+                .timeStamp(commonUtil.dateFormatter(new Date()))
+                .build();
+        return new ResponseEntity<>(errorPayload, httpStatus);
+    }
+
 }
