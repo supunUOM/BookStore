@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class ModalMapperUtil {
+public class ModelMapperUtil {
 
     private final ModelMapper modelMapper;
 

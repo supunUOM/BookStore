@@ -1,17 +1,20 @@
-package lk.cba.bookstore.payload;
+package lk.cba.bookstore.dto;
 
 import lk.cba.bookstore.entity.Author;
-import lombok.Data;
+import lombok.*;
 
 /**
  * @Author: supun
  * @Created_at: 13/02/2024
- * @Time: 10:09 PM
+ * @Time: 11:16 PM
  **/
 
-
 @Data
-public class BookReqPayload {
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class BookDTO {
+    private Integer bookId;
     private String isbn;
     private String title;
     private String category;

@@ -1,5 +1,6 @@
 package lk.cba.bookstore.service;
 
+import lk.cba.bookstore.dto.BookDTO;
 import lk.cba.bookstore.entity.Book;
 import lk.cba.bookstore.payload.BookReqPayload;
 
@@ -10,6 +11,9 @@ import lk.cba.bookstore.payload.BookReqPayload;
  **/
 
 public interface BookService {
-    Book savebook(BookReqPayload book);
-    Book editBook(BookReqPayload book);
+    BookDTO saveBook(BookReqPayload book);
+
+    BookDTO findBookByIsbn(String isbn);
+
+    BookDTO editBook(BookReqPayload book);
 }

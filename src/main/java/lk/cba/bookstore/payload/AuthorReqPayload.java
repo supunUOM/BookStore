@@ -1,6 +1,9 @@
 package lk.cba.bookstore.payload;
 
+import lk.cba.bookstore.entity.Book;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * @Author: supun
@@ -10,4 +13,8 @@ import lombok.Data;
 
 @Data
 public class AuthorReqPayload {
+    private String firstName;
+    private String lastName;
+    private String email;
+    private List<Book> books;
 }

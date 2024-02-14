@@ -1,5 +1,6 @@
 package lk.cba.bookstore.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,6 +39,7 @@ public class Author {
             mappedBy = "author",
             cascade = CascadeType.ALL
     )
+    @JsonIgnore
     private List<Book> books;
 
 
